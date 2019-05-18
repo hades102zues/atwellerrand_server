@@ -3,9 +3,9 @@ const { validationResult } = require("express-validator/check");
 
 //mailgun api
 const mailgun = require('mailgun-js');
-const DOMAIN = "sandbox46c82d60d71742c7b22f3281c3661f7e.mailgun.org";
+const DOMAIN = "";
 const mg = mailgun({
-  apiKey: "2c48e0cafed5b72569d3c258a1d06405-4a62b8e8-a64b00cf",
+  apiKey: "",
   domain: DOMAIN
 });
 
