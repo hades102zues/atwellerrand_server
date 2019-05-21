@@ -2,6 +2,12 @@ const { validationResult } = require("express-validator/check");
 
 
 //mailgun api
+const mailgun = require('mailgun-js');
+const DOMAIN = "sandbox46c82d60d71742c7b22f3281c3661f7e.mailgun.org";
+const mg = mailgun({
+  apiKey: "2c48e0cafed5b72569d3c258a1d06405-4a62b8e8-a64b00cf",
+  domain: DOMAIN
+});
 
 
 interface ContactForm {
@@ -64,7 +70,7 @@ exports.postRequestForm = (req, res, next) =>{
         subject: 'Services Request',
         html: `
         <html>
-        <body style="background-color: #fafafa; font-family:'Roboto'; font-size:16px; color:#0b1b20; ">
+        <body style="background-color: #fafafa; font-family:'Roboto'; font-size:16px; color:#0b1b20; padding:40px 20px;">
           <h1 style="text-align:center; color:#0b1b20;"> SERVICE REQUEST</h1>
           
           <p style="font-size:16px; color:#0b1b20;">${req.body.name}</p>
@@ -81,7 +87,7 @@ exports.postRequestForm = (req, res, next) =>{
           </div>
           
           <div style="width:85%; margin-top:40px;">
-            <h3 style="color:#0b1b20;">Additional Informaiton</h3>
+            <h3 style="color:#0b1b20;">Additional Information</h3>
           <p style="color:#0b1b20;">${req.body.message} </p>
           </div>
     
