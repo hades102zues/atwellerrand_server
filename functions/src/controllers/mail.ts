@@ -2,12 +2,6 @@ const { validationResult } = require("express-validator/check");
 
 
 //mailgun api
-const mailgun = require('mailgun-js');
-const DOMAIN = "";
-const mg = mailgun({
-  apiKey: "",
-  domain: DOMAIN
-});
 
 
 interface ContactForm {
@@ -57,24 +51,44 @@ exports.postRequestForm = (req, res, next) =>{
         return res.status(400).json({message: 'Form Supplied Is Incomplete'})
     }
 
+    //generates the html elements for each item in the services list
+    const servicesHtml = req.body.services.map((service:string):any => "<p>"+service+"</p>");
+
+    //generate a single string that will be inserted into the template below to produce the service list
+    const servicesHtmlOutput = servicesHtml.join(" ");
+
     //send the mail
     const mail:ReservationForm =  {
         from: `${req.body.name} <${req.body.email}>`,
-        to: "jacob26referibles@gmail.com",
+        to: "jacob26referibles@gmail.com", //change to asda
         subject: 'Services Request',
         html: `
         <html>
-         <body style="background-color:">
-            <p style="font-size:18px; color:#333; font-weight:bold;">Phone Number: <span style="font-size:18px; color:#333; font-weight:100">${req.body.phone}</span></p>
-            <p style="font-size:18px; color:#333; font-weight:bold; margin-top:25px">Service Requested: <span style="font-size:18px; color:#333; font-weight:100">${req.body.services}</span> </p>
+        <body style="background-color: #fafafa; font-family:'Roboto'; font-size:16px; color:#0b1b20; ">
+          <h1 style="text-align:center; color:#0b1b20;"> SERVICE REQUEST</h1>
+          
+          <p style="font-size:16px; color:#0b1b20;">${req.body.name}</p>
+          <p style="font-size:16px; color:#0b1b20;">${req.body.email}</p>
+          <p style="font-size:16px; color:#0b1b20;">${req.body.phone}</p>
+          
+          <div style="margin-top:10px; margin-left:40px;">
+                <h3 style="color:#0b1b20;" >Services Requested:</h3>
        
+                <div style="margin-left:20px">
+                  ${servicesHtmlOutput}
+                </div>
             
-            <p style="font-size:18px; color:#333; font-weight:bold; margin-top:35px"> Additional Message</p>
-            <p style="font-size:16px; color:#333; margin-top:5px">${req.body.message}</p>
+          </div>
+          
+          <div style="width:85%; margin-top:40px;">
+            <h3 style="color:#0b1b20;">Additional Informaiton</h3>
+          <p style="color:#0b1b20;">${req.body.message} </p>
+          </div>
+    
          </body>
-        </html>
+       </html>
         `
     } ;
 
-    mg.messages().send(mail).then(body => res.status(200).json({message: 'Email Sent'})).catch( err=> next(err) );
+   mg.messages().send(mail).then(body => res.status(200).json({message: 'Email Sent'})).catch( err=> next(err) );
 };
