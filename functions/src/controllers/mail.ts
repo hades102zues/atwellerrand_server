@@ -39,14 +39,38 @@ exports.postContactForm  = (req, res, next) => {
         return res.status(400).json({message: 'Form Supplied Is Incomplete'})
     }
 
-        const mail:ContactForm = {
-            from: `${req.body.name} <${req.body.email}>`,
+        const mail:ReservationForm = {
+            from: `${req.body.name} <${req.body.email.trim()}>`,
             to: "jacob26referibles@gmail.com",
             subject: req.body.subject,
-            text: req.body.message
+            html: `
+            <html>
+            <body style="background-color: #fafafa; font-family:'Roboto'; font-size:16px; color:#0b1b20; padding:20px 20px;">
+              <h2 style="text-align:center; color:#333;">Customer Inquiry</h1>
+              
+              <p style="font-size:16px; color:#0b1b20;">${req.body.name}</p>
+              <p style="font-size:16px; color:#0b1b20;">${req.body.email}</p>
+
+              <div style="width:90%; margin-top:40px;margin-left:0px">
+                <p style="color:#0b1b20;font-size:16px;">${req.body.message} </p>
+              </div>
+        
+             </body>
+           </html>
+            `
         }
       //send the mail
-      mg.messages().send(mail).then(body => res.status(200).json({message: 'Email Sent'})).catch( err=> next(err) );
+      mg.messages().send(mail).then((body,err) => {
+         console.log(body,err);
+
+         if(!err){
+          res.status(200).json({message: 'Email Sent'})
+        }
+        else {
+          res.status(500).json({message: 'Email was not sent'})
+        }
+
+      }).catch( err=> next(err) );
       
 };
 
@@ -65,28 +89,26 @@ exports.postRequestForm = (req, res, next) =>{
 
     //send the mail
     const mail:ReservationForm =  {
-        from: `${req.body.name} <${req.body.email}>`,
+        from: `${req.body.name} <${req.body.email.trim()}>`,
         to: "jacob26referibles@gmail.com", //change to asda
         subject: 'Services Request',
         html: `
         <html>
-        <body style="background-color: #fafafa; font-family:'Roboto'; font-size:16px; color:#0b1b20; padding:40px 20px;">
-          <h1 style="text-align:center; color:#0b1b20;"> SERVICE REQUEST</h1>
+        <body style="background-color: #fafafa; font-family:'Roboto'; font-size:16px; color:#0b1b20; padding:20px 20px;">
+          <h2 style="text-align:center; color:#333;"> SERVICE REQUEST</h1>
           
           <p style="font-size:16px; color:#0b1b20;">${req.body.name}</p>
           <p style="font-size:16px; color:#0b1b20;">${req.body.email}</p>
           <p style="font-size:16px; color:#0b1b20;">${req.body.phone}</p>
-          
-          <div style="margin-top:10px; margin-left:40px;">
-                <h3 style="color:#0b1b20;" >Services Requested:</h3>
+         
+          <h3 style="color:#0b1b20;" >Services Requested:</h3>
        
                 <div style="margin-left:20px">
                   ${servicesHtmlOutput}
                 </div>
-            
-          </div>
+
           
-          <div style="width:85%; margin-top:40px;">
+          <div style="width:90%; margin-top:40px;">
             <h3 style="color:#0b1b20;">Additional Information</h3>
           <p style="color:#0b1b20;">${req.body.message} </p>
           </div>
@@ -96,5 +118,16 @@ exports.postRequestForm = (req, res, next) =>{
         `
     } ;
 
-   mg.messages().send(mail).then(body => res.status(200).json({message: 'Email Sent'})).catch( err=> next(err) );
+    mg.messages().send(mail).then((body,err) => {
+      console.log(body,err);
+
+      if(!err){
+        res.status(200).json({message: 'Email Sent'})
+      }
+      else {
+        res.status(500).json({message: 'Email was not sent'})
+      }
+     
+
+   }).catch( err=> next(err) );
 };

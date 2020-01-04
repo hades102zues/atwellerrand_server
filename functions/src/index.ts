@@ -24,7 +24,9 @@ app.use(mailRoutes);
 
 //error handler
 app.use((error ,req, res, next)=>{
-    res.status(501).json({error})
+    // res.status(501).json({error})
+
+    //log the error with something if need be
 })
 
 //Unknown Route Handler
