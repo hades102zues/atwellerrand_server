@@ -1,5 +1,6 @@
 {
   "projects": {
-    "cloudmail": "cloudmail-769c9"
+    "prod": "atwellerrandswebsite",
+    "default": "atwellerrandswebsite"
   }
 }

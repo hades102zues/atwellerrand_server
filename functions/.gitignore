@@ -7,3 +7,6 @@ typings/
 
 **/firebase.json
 **/*.firebaserc
+
+**/node_modules
+**/lib

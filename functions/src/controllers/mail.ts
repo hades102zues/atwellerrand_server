@@ -3,9 +3,9 @@ const { validationResult } = require("express-validator/check");
 
 //mailgun api
 const mailgun = require('mailgun-js');
-const DOMAIN = "sandbox46c82d60d71742c7b22f3281c3661f7e.mailgun.org";
+const DOMAIN = "mg.asdaservicesbds.com";
 const mg = mailgun({
-  apiKey: "2c48e0cafed5b72569d3c258a1d06405-4a62b8e8-a64b00cf",
+  apiKey: "",
   domain: DOMAIN
 });
 
@@ -41,7 +41,7 @@ exports.postContactForm  = (req, res, next) => {
 
         const mail:ReservationForm = {
             from: `${req.body.name} <${req.body.email.trim()}>`,
-            to: "jacob26referibles@gmail.com",
+            to: "atwellinc@gmail.com",
             subject: req.body.subject,
             html: `
             <html>
@@ -52,7 +52,7 @@ exports.postContactForm  = (req, res, next) => {
               <p style="font-size:16px; color:#0b1b20;">${req.body.email}</p>
 
               <div style="width:90%; margin-top:40px;margin-left:0px">
-                <p style="color:#0b1b20;font-size:16px;">${req.body.message} </p>
+                <p style="color:#0b1b20;font-size:16px;text-align:left">${req.body.message} </p>
               </div>
         
              </body>
@@ -61,7 +61,7 @@ exports.postContactForm  = (req, res, next) => {
         }
       //send the mail
       mg.messages().send(mail).then((body,err) => {
-         console.log(body,err);
+         
 
          if(!err){
           res.status(200).json({message: 'Email Sent'})
@@ -90,7 +90,7 @@ exports.postRequestForm = (req, res, next) =>{
     //send the mail
     const mail:ReservationForm =  {
         from: `${req.body.name} <${req.body.email.trim()}>`,
-        to: "jacob26referibles@gmail.com", //change to asda
+        to: "atwellinc@gmail.com", //change to asda
         subject: 'Services Request',
         html: `
         <html>
@@ -119,7 +119,7 @@ exports.postRequestForm = (req, res, next) =>{
     } ;
 
     mg.messages().send(mail).then((body,err) => {
-      console.log(body,err);
+    
 
       if(!err){
         res.status(200).json({message: 'Email Sent'})
