@@ -1,11 +1,14 @@
 const { validationResult } = require("express-validator/check");
 
+const email = "atwellinc@gmail.com";
 
 //mailgun api
 const mailgun = require('mailgun-js');
-const DOMAIN = "mg.asdaservicesbds.com";
+const DOMAIN = "";
+const APIKEY = "";
+
 const mg = mailgun({
-  apiKey: "",
+  apiKey: APIKEY ,
   domain: DOMAIN
 });
 
@@ -41,7 +44,7 @@ exports.postContactForm  = (req, res, next) => {
 
         const mail:ReservationForm = {
             from: `${req.body.name} <${req.body.email.trim()}>`,
-            to: "atwellinc@gmail.com",
+            to: email,
             subject: req.body.subject,
             html: `
             <html>
@@ -90,7 +93,7 @@ exports.postRequestForm = (req, res, next) =>{
     //send the mail
     const mail:ReservationForm =  {
         from: `${req.body.name} <${req.body.email.trim()}>`,
-        to: "atwellinc@gmail.com", //change to asda
+        to: email, //change to asda
         subject: 'Services Request',
         html: `
         <html>
