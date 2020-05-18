@@ -5,7 +5,7 @@ const { validationResult } = require("express-validator/check");
 const mailgun = require('mailgun-js');
 const DOMAIN = "mg.asdaservicesbds.com";
 const mg = mailgun({
-  apiKey: "",
+  apiKey: "20742c604a51001426ef822d62e02a4b-2ae2c6f3-223c080d",
   domain: DOMAIN
 });
 
