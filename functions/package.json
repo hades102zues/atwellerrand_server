@@ -20,9 +20,11 @@
     "firebase-functions": "^3.3.0",
     "mailgun-js": "^0.22.0"
   },
-  "engines":{
+
+  "engine":{
     "node":"8"
   },
+
   "devDependencies": {
     "tslint": "~5.8.0",
     "typescript": "~2.8.3"

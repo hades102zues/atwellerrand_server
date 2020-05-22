@@ -1,5 +1,3 @@
-
-
 const functions = require('firebase-functions');
 const express = require('express');
 const cors = require('cors');
@@ -23,7 +21,7 @@ app.use(mailRoutes);
 
 
 //error handler
-app.use((error ,req, res, next)=>{
+app.use((error,req, res, next)=>{
     // res.status(501).json({error})
 
     //log the error with something if need be
@@ -31,6 +29,7 @@ app.use((error ,req, res, next)=>{
 
 //Unknown Route Handler
 app.use((req, res)=>{
+    
     res.status(404).json({ message: 'Unknown Route'});
 });
 

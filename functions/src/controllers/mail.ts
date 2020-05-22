@@ -1,11 +1,17 @@
 const { validationResult } = require("express-validator/check");
 
-const email = "atwellinc@gmail.com";
+const firebase_functions = require('firebase-functions');
+const firebase_ENV = firebase_functions.config().env;
 
 //mailgun api
 const mailgun = require('mailgun-js');
-const DOMAIN = "";
-const APIKEY = "";
+const DOMAIN:string = firebase_ENV.mail_domain; 
+const APIKEY:string = firebase_ENV.api_key; 
+
+const email:string= firebase_ENV.email; 
+
+
+
 
 const mg = mailgun({
   apiKey: APIKEY ,
