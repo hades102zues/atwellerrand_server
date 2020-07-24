@@ -51,7 +51,7 @@ exports.postContactForm = (req, res, next) => {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             </head>
-            <body style="background-color: #fafafa; font-family:'Roboto'; font-size:16px; color:#0b1b20; padding:20px 20px;">
+            <body style="background-color: #fafafa; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#0b1b20; padding:20px 20px;">
               <h2 style="text-align:center; color:#333;">Customer Inquiry</h1>
               
               <p style="font-size:16px; color:#0b1b20;">${req.body.name}</p>
@@ -103,7 +103,7 @@ exports.postRequestForm = (req, res, next) => {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
-        <body style="background-color: #fafafa; font-family:'Roboto'; font-size:16px; color:#0b1b20; padding:20px 20px;">
+        <body style="background-color: #fafafa; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#0b1b20; padding:20px 20px;">
           <h2 style="text-align:center; color:#333;"> SERVICE REQUEST</h1>
           
           <p style="font-size:16px; color:#0b1b20;">${req.body.name}</p>
