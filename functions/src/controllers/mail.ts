@@ -67,12 +67,11 @@ exports.postContactForm = (req, res, next) => {
   };
   //send the mail
   mg.messages()
-    .send(mail)
-    .then((body, err) => {
+    .send(mail, (err, body) => {
       if (!err) {
         res.status(200).json({ message: "Email Sent" });
       } else {
-        res.status(500).json({ message: "Email was not sent" });
+        res.status(500).json({ message: "Email was not sent", err });
       }
     })
     .catch((err) => next(err));
@@ -128,12 +127,14 @@ exports.postRequestForm = (req, res, next) => {
   };
 
   mg.messages()
-    .send(mail)
-    .then((body, err) => {
+    .send(mail, (err, body) => {
       if (!err) {
         res.status(200).json({ message: "Email Sent" });
       } else {
-        res.status(500).json({ message: "Email was not sent" });
+        res.status(500).json({
+          message: "Email was not sent",
+          err,
+        });
       }
     })
     .catch((err) => next(err));
